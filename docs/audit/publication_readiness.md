@@ -64,7 +64,8 @@ negative/conditional result, not a submission-ready optimum study.
 
 - [~] E1: bge-m3 10/25/40/50 done (50 remains best); e5/Qwen3/LaBSE still stop at 50. The paper now
       reports the partial check and states the boundary honestly.
-- [ ] Fill the 100-question self-containedness audit or state that it is unfilled (currently stated).
+- [x] Self-containedness audit done with three raters: 77/100 majority self-contained, Fleiss
+      kappa 0.734; one unclear row and one no-majority row disclosed.
 - [ ] Decide whether to add LaBSE overlap/recursive runs or keep the four-system scope (currently
       stated).
 - [ ] Add a native-authored set or keep every claim MT-scoped (currently stated).
