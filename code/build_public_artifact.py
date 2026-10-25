@@ -138,6 +138,13 @@ Public repository: <https://github.com/devxyasir/urdu-chunking-strategy>
 - `code/` — corpus builder, chunkers, BM25, dense wrappers, analysis, figures, audit script.
 - `figures/`, `docs/audit/`, `notebooks/`.
 
+## Run the missing E1 experiment (Colab)
+
+[Open the notebook in Colab](https://colab.research.google.com/github/devxyasir/urdu-chunking-strategy/blob/main/notebooks/urdu_chunking_small_sizes.ipynb).
+Upload only `corpus_ur.jsonl` and `questions.csv` to
+`MyDrive/urdu_chunking/urdu_chunking_full/`; the notebook clones the code from this repository.
+The script is resumable.
+
 ## Reproduce the tables (no UQA text needed)
 
 ```bash
