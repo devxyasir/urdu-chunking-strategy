@@ -137,9 +137,11 @@ question survives only when its row uses that variant and the question is answer
 document is the chosen paragraphs joined in order. Of 124{,}745 rows, 24{,}898 remain (20.0\%).
 Every retained span was checked: 83{,}018/83{,}018 train and 11{,}169/11{,}169 validation rows pass
 the character-offset equality test. The English control reuses the same articles and questions with
-SQuAD paragraphs and offsets. On a single-rater 100-question audit, 74 questions were judged
-self-contained, 21 context-dependent, and 5 unclear; the 95\% Wilson interval for the self-contained
-proportion is 64.6--81.6\%. The audit is a corpus check, not an evaluation of retrieval quality.
+SQuAD paragraphs and offsets. On a 100-question audit with three independent raters, the majority
+label is self-contained for 77, context-dependent for 21, unclear for 1, and has no majority for 1;
+the self-contained rate is 77.0\% (Wilson 95\% CI 67.8--84.2\%). Pairwise raw agreement is 88--91\%,
+Fleiss' kappa is 0.734, and 85/100 rows are unanimous. The audit is a corpus check, not an
+evaluation of retrieval quality.
 
 \paragraph{Pool and splits.}
 We keep the 403 articles with at least 20 retained questions, 20 paragraphs, and 1{,}500 Urdu words.
@@ -505,9 +507,9 @@ normalize. We report the Unicode audit so the null can be read rather than guess
 \item \bb{Single domain.} Wikipedia articles made of concatenated paragraphs. Not web text, legal
   text, or conversation.
 \item \bb{Machine-translated queries.} Every question is UQA machine translation. The 150--300
-  native-authored questions needed to test transfer do not exist. A single-rater audit judges 74 of
-  100 sampled questions self-contained, 21 context-dependent, and 5 unclear (Wilson 95\% CI for the
-  self-contained rate 64.6--81.6\%); no second-reader agreement estimate is available.
+  native-authored questions needed to test transfer do not exist. Three raters judge 77 of 100
+  sampled questions self-contained by majority (Wilson 95\% CI 67.8--84.2\%; Fleiss' kappa 0.734);
+  one row is unclear and one has no majority.
 \item \bb{Retrieval only.} No generator and no LLM judge. The conclusions concern evidence
   retrieval, not answer quality. Relevance is exact answer-string containment; no human relevance
   or context-quality judgments were collected.

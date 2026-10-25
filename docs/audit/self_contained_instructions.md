@@ -17,8 +17,8 @@ public repo). Columns: `qid,article_title,question,gold_answer,self_contained`.
 
 1. Judge the question **before** reading the answer. Do not open the article.
 2. If the answer is needed to decide, judge again after seeing it; record the second judgment.
-3. Have a second reader independently fill the same 100 rows (blank the first column before sending).
-4. Compare. Adjudicate disagreements; record the final value and the disagreement rate.
+3. Have at least one additional reader independently fill the same 100 rows (blank the first column before sending).
+4. Compare. Record pairwise agreement and majority labels; adjudicate ties separately.
 5. Do not change the questions or the sample after looking at the retrieval results.
 
 **Report.**

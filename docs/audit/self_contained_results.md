@@ -1,20 +1,36 @@
 # Self-containedness audit: result
 
-File: `data/external/urdu_chunking_full/audit_100_questions.csv` (private; contains UQA text).
+Three independent raters labeled the same 100 questions. Labels: `1` self-contained, `0`
+context-dependent, `?` unclear. Source files are private (`data/audit/reader_A.csv`, `_B`, `_C`);
+they contain UQA text and must not be published.
+
+| Reader | 1 | 0 | ? |
+| --- | --- | --- | --- |
+| A | 74 | 21 | 5 |
+| B | 77 | 20 | 3 |
+| C | 75 | 21 | 4 |
+
+## Agreement
+
+| Pair | Raw agreement | Cohen's kappa |
+| --- | --- | --- |
+| A–B | 90.0% | 0.741 |
+| A–C | 88.0% | 0.699 |
+| B–C | 91.0% | 0.763 |
+
+- Unanimous: **85/100** rows.
+- Fleiss' kappa (3 raters, 3 categories): **0.734**.
+
+## Majority label
 
 | Label | Count |
 | --- | --- |
-| 1, self-contained | 74 |
-| 0, context-dependent | 21 |
-| ?, unclear | 5 |
-| Total | 100 |
+| 1 self-contained | 77 |
+| 0 context-dependent | 21 |
+| ? unclear | 1 |
+| no majority | 1 |
 
-Self-contained rate: **74/100 = 74.0%**, Wilson 95% CI **64.6–81.6%**.
+Majority self-contained rate: **77/100 = 77.0%**, Wilson 95% CI **67.8–84.2%**.
 
-Provenance: one rater, 100 sampled questions, filled after the retrieval runs were complete. This is
-a single-rater audit; no second-reader agreement is available. The labels were read from the filled
-CSV and scored with `code/score_self_contained.py`.
-
-Interpretation: about one in five audited questions depends on the article context. The corpus is
-usable for retrieval evaluation, but a reader should not assume that every question is understandable
-without context. Do not treat the audit as a measure of retrieval quality.
+The one row with no majority was not adjudicated by a fourth reader; it is reported, not silently
+assigned. The audit is a corpus check, not a measure of retrieval quality.
