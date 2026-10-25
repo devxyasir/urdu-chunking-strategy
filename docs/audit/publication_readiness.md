@@ -51,8 +51,9 @@ negative/conditional result, not a submission-ready optimum study.
 - [x] Add `question_ids.csv` and a minimal `questions.csv` (IDs/splits only).
 - [x] Add `requirements-full.txt` and record the archived CUDA/PyTorch versions.
 - [ ] Choose a code licence (MIT/Apache-2.0) and a paper licence (CC BY 4.0); do not license UQA text.
-- [ ] Create the public GitHub repository and push `public_artifact/`.
-- [ ] Replace the private URL in `README.md`/`CITATION.cff` with the public URL, or remove it.
+- [x] Create the public GitHub repository and push `public_artifact/`
+      (https://github.com/devxyasir/urdu-chunking-strategy).
+- [x] Replace the private URL in `README.md`/`CITATION.cff` with the public URL.
 - [ ] Archive the artifact with a DOI (Zenodo/OSF) and put the DOI in the paper.
 - [ ] Recompile and proofread the PDF after the artifact URL is added.
 - [ ] Check the target venue's AI-disclosure and preprint rules; the current statement is factual but

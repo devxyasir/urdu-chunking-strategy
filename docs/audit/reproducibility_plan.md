@@ -101,7 +101,7 @@ figures or the bootstrap endpoints exactly; run `analyze_full.py` and `make_figu
 
 
 
-## Creating the public repository (the part you said you can do)
+## Public repository
 
 The staged artifact is `public_artifact/` (80.6 MB, no UQA text). It was built by
 `code/build_public_artifact.py`. Check these before pushing:

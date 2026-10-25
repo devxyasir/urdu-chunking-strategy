@@ -32,8 +32,8 @@ run-inventory error; the corrected total is 360.
 ## What is still open
 
 1. Dense 10/25/40/50 grid (E1) — not run; no GPU locally.
-2. Public code/results artifact — staged at `public_artifact/`; still needs a public repo, licence,
-   and URL.
+2. Public code/results artifact — pushed to
+   https://github.com/devxyasir/urdu-chunking-strategy; licence and DOI still open.
 3. Native Urdu set — does not exist.
 4. Human context judgments — do not exist.
 5. LaBSE overlap/recursive cells — not run; claims now name the four systems where the sweep ran.
