@@ -15,6 +15,7 @@ and the verdict; the other files are the evidence and the follow-up plan.
 | `e1_results.md` | E1 update | bge-m3 10/25/40/50 result and provenance |
 | `notebook_audit.md` | #5 audit | What was checked in the notebook, and what remains unaudited |
 | `self_contained_instructions.md` | #2 protocol | How to fill and score the 100-question self-containedness audit |
+| `self_contained_results.md` | #2 result | 74/100 self-contained; Wilson 95% CI 64.6--81.6% |
 | `../../public_artifact/` | Public staging | 80.6 MB, no UQA text; built by `code/build_public_artifact.py` |
 | `../paper/paper_preprint.pdf` | F. Revised paper | Named preprint, 11 pages, claims narrowed |
 | `../paper/paper.pdf` | F. Revised paper (anonymous) | Same content with review formatting |
