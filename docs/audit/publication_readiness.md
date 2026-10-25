@@ -9,17 +9,18 @@ Reasons:
 
 1. The 360-run package is internally consistent and the main tables reproduce. The paper no longer
    claims an interior optimum; it reports a boundary result. That is enough for a careful preprint.
-2. The decisive lower-size dense experiment (10/25/40/50 words) has not been run. A reviewer will ask
-   whether 50 is simply the grid floor; the paper now says so, but the question remains open.
-3. The public artifact does not exist. The paper says the repository is private during review; a
-   submission that promises a future release is weaker than one with a working artifact.
+2. The lower-size check is complete only for bge-m3 (50 remains best, curve monotonic). e5, Qwen3,
+   and LaBSE still stop at 50, and the raw E1 per-question arrays are not in the workspace. A
+   reviewer can still ask whether 50 is the grid floor for those three encoders.
+3. The public artifact now exists at https://github.com/devxyasir/urdu-chunking-strategy. That reason
+   is resolved; licence and DOI are not.
 4. The corpus is machine-translated, single-domain, and has no native or human evaluation. These are
    disclosed, not solved.
 5. UQA has no explicit licence. The public artifact must exclude UQA text; that is a release task, not
    a paper task.
 
-After E1 (lower-size dense grid) and a public code/results artifact, the paper would be a credible
-workshop or benchmark-track submission. Without them, it is a useful preprint and a complete
+After completing E1 for all four encoders and a public code/results artifact, the paper would be a
+credible workshop or benchmark-track submission. Without them, it is a useful preprint and a complete
 negative/conditional result, not a submission-ready optimum study.
 
 ## What changed in this revision
@@ -61,8 +62,8 @@ negative/conditional result, not a submission-ready optimum study.
 
 ### Must do before a peer-reviewed submission
 
-- [ ] Run E1 (10/25/40/50 dense grid) or remove the remaining "best tested size" framing that invites
-      the boundary question. The current framing is honest; E1 makes it stronger.
+- [~] E1: bge-m3 10/25/40/50 done (50 remains best); e5/Qwen3/LaBSE still stop at 50. The paper now
+      reports the partial check and states the boundary honestly.
 - [ ] Fill the 100-question self-containedness audit or state that it is unfilled (currently stated).
 - [ ] Decide whether to add LaBSE overlap/recursive runs or keep the four-system scope (currently
       stated).
@@ -87,7 +88,7 @@ a new dataset, and it has no generation evaluation.
 | Option | Fit | What to check |
 | --- | --- | --- |
 | arXiv `cs.CL` preprint | Good now, with limitations | Endorsement/moderation; no fee; no peer review; do not call it published |
-| ACL/NAACL/EMNLP main or Findings | Possible after E1 and artifact | Current CFP; anonymity/preprint policy; no submission fee for main conference; open-access proceedings |
+| ACL/NAACL/EMNLP main or Findings | Possible after all-encoder E1 and artifact | Current CFP; anonymity/preprint policy; no submission fee for main conference; open-access proceedings |
 | LREC-COLING or a language-resources track | Good fit for the corpus/protocol, not for an optimum claim | Current CFP; fees; whether a private artifact is acceptable |
 | Workshop on low-resource/multilingual NLP | Good fit for a modest, careful result | Current workshop scope; workshop fees; preprint policy |
 | TACL or an IR journal | Premature | Requires a stronger contribution than a boundary result; check APC/open-access options |

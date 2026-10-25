@@ -117,5 +117,5 @@ Paper appendix arithmetic:
 
 - **Verified:** 360 unique runs; 162 BM25 (81 whitespace + 81 character), 114 dense (93 Urdu + 21 English), 84 RRF; all per-question arrays length 7,362; all ranking files aligned; Tables 2--5 reproduce from the archived per-question arrays to within 0.0001.
 - **Verified:** 120 test articles, 7,362 test questions, 150-article pool, 1,007,122 words; 37 N1/N2 failures; 2 non-NFC documents; 34 Urdu digit characters.
-- **Not verified here:** the bootstrap endpoints in the last digit (stochastic; seed 0, 10,000 resamples); the figures; any dense embedding rerun; the semantic pilot (not in the 360-run grid); the native set (does not exist); human judgments (do not exist); a public artifact (repository is private).
-- **Requires a new experiment:** the 10/25/40/50 dense grid. No current run can answer whether 50 is an interior optimum.
+- **Not verified here:** the bootstrap endpoints in the last digit (stochastic; seed 0, 10,000 resamples); the figures; any dense embedding rerun; the semantic pilot (not in the 360-run grid); the native set (does not exist); human judgments (do not exist); E1 raw per-question arrays (summary only).
+- **Requires a new experiment:** the 10/25/40/50 grid for e5, Qwen3, and LaBSE. bge-m3 was run by the author and 50 remains best (summary in docs/audit/e1_results.md); its raw per-question arrays are not in this workspace.

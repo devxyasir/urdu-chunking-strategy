@@ -23,10 +23,13 @@ Retrieval systems are shaped by how documents are cut into chunks. Most of what 
 that choice comes from English, and most of it measures size in model tokens. This paper moves the
 question to Urdu. We build a parallel Urdu--English corpus from UQA and SQuAD2.0: 150 articles and
 7{,}362 test questions. Four multilingual encoders, BM25, and BM25+dense RRF run over five chunkers,
-word sizes from 50 to 800, token budgets from 64 to 256, and three overlap levels. Budget-matched
-recall at 500 words is the metric; intervals come from an article-level bootstrap. Three results
-stand out. The best tested word size is the same for every encoder: 50 words, the smallest size
-tested. The token argmax differs (64/128/256), though adjacent budgets are statistically tied;
+word sizes from 50 to 800 (10 to 800 for a bge-m3 extension), token budgets from 64 to 256, and
+three overlap levels. Budget-matched recall at 500 words is the metric; intervals come from an
+article-level bootstrap. Three results stand out. The best tested word size is 50 for every encoder
+in the main grid; extending bge-m3 down to 10 words is monotonic and also selects 50. At 10 words,
+18.2\% of answers are split across chunks, against 4.1\% at 50. The token argmax differs
+(64/128/256), though adjacent
+budgets are statistically tied;
 128 tokens is about 96 words for XLM-R and 42 for Qwen3 (fertility 1.34 vs.\ 3.07). Urdu-aware
 sentence splitting beats English-toolkit defaults by 5.5--6.9 points at 50 words in the four systems
 where both were run; at 200 words the sign flips. 25\% overlap is associated with 2.6--7.2 more
@@ -69,9 +72,9 @@ tokenizers? (Q3) Do Urdu-aware boundaries and normalization beat English-toolkit
 the parallel English control select the same best tested size? The evaluation is retrieval-only: no
 generator, no LLM judge. Our contributions are:
 \begin{itemize}
-\item a systematic, budget-matched chunking evaluation for Urdu retrieval: 360 runs over a
+\item a systematic, budget-matched chunking evaluation for Urdu retrieval: 360 main runs over a
   150-article pool and 7{,}362 test questions, five chunkers, four encoders, two sparse retrievers,
-  and RRF;
+  and RRF, plus a four-run bge-m3 lower-size check;
 \item a direct word-versus-token comparison across tokenizers with measured fertility: token budgets
   are not comparable across models, word budgets are;
 \item evidence that Urdu-aware sentence splitting helps at the small sizes dense retrievers prefer
@@ -231,8 +234,9 @@ with zero overlap (9). bge-m3 and Qwen3 also run 400/800 words with 0/25\% overl
 secondary and runs at 50/100 words. e5 stops at 200 words: its 512-token window truncates 74\% of
 400-word chunks and 100\% of 800-word chunks. The encoders use their model maximum sequence lengths
 (bge-m3 8{,}192, e5 512, Qwen3 32{,}768, LaBSE 256). Only LaBSE's 100-word sentence-aware run
-truncates: 3 of 9{,}800 chunks (0.03\%) exceed 256 tokens; every other dense run is clean. The full study
-is 360 runs.
+truncates: 3 of 9{,}800 chunks (0.03\%) exceed 256 tokens; every other dense run is clean. The main
+grid is 360 runs. A separate lower-size extension adds 4 bge-m3 runs at 10/25/40/50 words (overlap
+0, N0), reported in \S\ref{sec:lower}.
 
 \section{Results}
 \label{sec:results}
@@ -276,6 +280,37 @@ BM25 & .648 & .684 & \bb{.708} & \bb{.709} & .612 \\
 \caption{BM-Recall@500 by word size (overlap 0, bm500x). Bold is the row maximum; 200 and 400 are
 statistically tied for BM25. Full CIs are in Figure~\ref{fig:size}.}
 \label{tab:words}
+\end{table}
+
+\subsection{Lower-size check}
+\label{sec:lower}
+
+The main grid stops at 50 words for dense models. To test whether 50 is an interior maximum, we
+extended bge-m3 down to 10 words on the same articles and questions (zero overlap, N0).
+Table~\ref{tab:lower} reports the four runs. BM-Recall@500 rises monotonically: .418 at 10, .689 at
+25, .756 at 40, and .773 at 50. The 50-word point is 1.7 points above 40, but the two intervals
+overlap, so we do not claim a sharp 40-versus-50 separation. At 10 words, 18.2\% of answers are split
+across chunks, against 4.1\% at 50; fragmentation is a plausible mechanism, not a decomposition.
+The check
+covers one encoder. e5, Qwen3, and LaBSE were not extended below 50.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rcccc}
+\toprule
+Size & Chunks & BM500x [95\% CI] & BM500 & Split \\
+\midrule
+10 & 80{,}962 & .418 [.400, .437] & .417 & 18.2\% \\
+25 & 32{,}423 & .689 [.672, .707] & .686 & 7.7\% \\
+40 & 20{,}285 & .756 [.741, .771] & .753 & 4.8\% \\
+50 & 16{,}244 & \bb{.773} [.758, .789] & .768 & 4.1\% \\
+\bottomrule
+\end{tabular}
+\caption{bge-m3 lower-size check (10/25/40/50 words, zero overlap, N0, crossing budget). BM500x is
+the primary metric; Split is the answer-split rate. This is one encoder, not the full grid.}
+\label{tab:lower}
 \end{table}
 
 \subsection{Words versus model tokens}
@@ -426,12 +461,14 @@ token is a model unit whose size depends on the vocabulary. The measured fertili
 retrieval tasks. The token argmaxes are plateaus, so the problem is not a sharp 64-versus-256
 disagreement. It is that ``128 tokens'' does not name a fixed amount of text.
 
-\paragraph{The best tested word size sits at the grid boundary.}
-Every dense curve falls from 50 words. The shared best result is the smallest size tested, not an
-interior optimum. The data show that the best \emph{tested} size is the same across encoders. They
-do not show that 50 is optimal in any absolute sense. A finer grid (10/25/40/50) is the next step,
-and we do not claim it here. The boundary also explains why Urdu-aware splitting gains most at 50 words:
-sentence-aware chunks avoid the 4.1\% answer-split rate of fixed 50-word chunks.
+\paragraph{Boundary for three encoders; bge-m3 confirmed downward.}
+Above 50 words every dense curve falls. For e5, Qwen3, and LaBSE, 50 is the smallest size tested.
+For bge-m3, 10--50 are now tested and 50 is still best; the curve rises monotonically into 50. The
+40- and 50-word intervals overlap, so the lower end is not sharply separated, and 30/35/45 remain
+untested. The data show that the best \emph{tested} size is the same across encoders; they do not
+show that 50 is optimal in any absolute sense. The boundary also explains why Urdu-aware splitting
+gains most at 50 words: sentence-aware chunks avoid the 4.1\% answer-split rate of fixed 50-word
+chunks.
 
 \paragraph{Why overlap helps here.}
 English chunking work often finds overlap neutral or harmful
@@ -459,7 +496,9 @@ normalize. We report the Unicode audit so the null can be read rather than guess
 \item \bb{Machine-translated corpus.} UQA is MT, with 4.86 variants per paragraph. The modal rule
   keeps 20\% of rows and may select a systematically different translation. The English control is
   original SQuAD text, so the language comparison mixes language with translation artifacts.
-\item \bb{Boundary result.} 50 words is the smallest size tested. No interior optimum is identified.
+\item \bb{Boundary result.} 50 words is the smallest size tested for e5, Qwen3, and LaBSE. bge-m3
+  was extended to 10/25/40/50; 50 remains best and the curve is monotonic, but 30/35/45 are untested
+  and no interior maximum is identified.
 \item \bb{Single domain.} Wikipedia articles made of concatenated paragraphs. Not web text, legal
   text, or conversation.
 \item \bb{Machine-translated queries.} Every question is UQA machine translation. The 150--300
@@ -488,17 +527,18 @@ configurations, question IDs, and per-question metrics rather than UQA text. It 
 public repository:
 \begin{flushleft}\footnotesize\href{https://github.com/devxyasir/urdu-chunking-strategy}{github.com/devxyasir/urdu-chunking-strategy}\end{flushleft}
 The corpus is encyclopedic and contains no personal or sensitive data. No LLM generated evaluation data, labels, or rankings. Every question
-and span comes from the released corpora, and every metric is deterministic. We report 360 runs,
-bootstrap seed 0, model revisions, per-question metrics, and article-level CIs. AI assistance was
+and span comes from the released corpora, and every metric is deterministic. We report 360 main
+runs and 4 lower-size runs, bootstrap seed 0, model revisions, per-question metrics, and
+article-level CIs. AI assistance was
 used for literature search, code development, analysis, figure generation, and drafting/editing.
 The author verified all results and takes responsibility for the content.
 
 \section{Conclusion}
 
 For Urdu retrieval, define chunk size in words, not model tokens. The same token budget is 96 words
-for XLM-R and 42 for Qwen3, while the best tested word size is 50 for every encoder. Urdu-aware
-sentence splitting helps at the sizes dense retrievers prefer (5.5--6.9 points) and reverses at 200
-words. 25\% overlap helps on this corpus. Normalization is a null on machine-translated Urdu. We
+for XLM-R and 42 for Qwen3, while the best tested word size is 50 for every encoder; extending
+bge-m3 down to 10 words does not move it. Urdu-aware sentence splitting helps at the sizes dense
+retrievers prefer (5.5--6.9 points) and reverses at 200 words. 25\% overlap helps on this corpus. Normalization is a null on machine-translated Urdu. We
 release the pipeline and per-question results so the size-by-unit interaction can be tested on
 other languages and on naturally occurring text.
 
@@ -528,7 +568,9 @@ Dense: 54 for bge-m3 (21 Urdu + 12 at 400/800 + 21 English), 21 for e5, 33 for Q
 (21 + 12 at 400/800), and 6 for LaBSE = 114 runs. RRF: 84 runs. Total 162 + 114 + 84 = 360.
 The 21-configuration base is fixed words at 50/100/200 with 0/10/25\% overlap (9), fixed tokens at
 64/128/256 (3), and sentence-aware, recursive-English, and recursive-Urdu at 50/100/200 with zero
-overlap (9).
+overlap (9). The lower-size check adds 4 bge-m3 runs at 10/25/40/50 words (zero overlap, N0), for
+364 runs including the extension. The check is reported separately in \S\ref{sec:lower}; it is not
+part of the archived 360-run package.
 
 \paragraph{Model revisions and environment.}
 \begin{flushleft}\footnotesize

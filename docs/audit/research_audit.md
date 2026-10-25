@@ -25,7 +25,7 @@ is the untested region below 50 words for dense encoders.
 | C4 truncation | Fixed; 3/9,800 LaBSE chunks, 256-token window |
 | C5 optimum wording | Fixed to "best tested size" in abstract, results, discussion, conclusion |
 | C6 AI disclosure | Broadened |
-| M1 lower dense grid | Open; E1 specified, not run |
+| M1 lower dense grid | Partly done: bge-m3 10/25/40/50 (50 still best); e5/Qwen3/LaBSE not run |
 | M2 LaBSE sweep scope | Claims narrowed to four systems; optional runs not done |
 | M15 manifest budget label | Paper appendix notes it; notebook patched for future reruns; archived manifest unchanged |
 
@@ -96,7 +96,7 @@ before submission.
 
 ## Major issues
 
-### M1. The dense grid stops at 50 words, so Q2 is only half-answered
+### M1. The dense grid stops at 50 words for three encoders, so Q2 is only half-answered
 
 All four dense encoders are best at 50, the smallest tested size. The paper discloses this and says a
 finer grid is future work. That is honest, but the abstract's "word-defined optima agree" still reads

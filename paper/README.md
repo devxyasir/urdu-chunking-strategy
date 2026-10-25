@@ -37,24 +37,26 @@ Urdu example is an image; the PDF was rasterized and inspected page by page.
 
 - Four questions: size/overlap/strategy x retriever; words vs tokens; Urdu-aware boundaries and
   normalization; parallel English control.
-- 360 runs, 150 articles (30 dev / 120 test), 7,362 test questions, four encoders, BM25 ws/char,
-  RRF, 21 English runs.
+- 360 main runs plus 4 bge-m3 lower-size runs, 150 articles (30 dev / 120 test), 7,362 test
+  questions, four encoders, BM25 ws/char, RRF, 21 English runs.
 - Primary metric: BM-Recall@500 (crossing), article-level bootstrap CIs.
-- Headline results: the best tested word size is 50 for all dense encoders (grid floor; interior
-  optimum untested); token argmaxes differ but adjacent budgets are tied (fertility 1.34 vs 3.07);
+- Headline results: the best tested word size is 50 for all dense encoders; a bge-m3 lower-size
+  check (10/25/40/50) is monotonic and also selects 50. Token argmaxes differ but adjacent budgets
+  are tied (fertility 1.34 vs 3.07);
   Urdu-aware splitting +5.5-6.9 points at 50 words but reverses at 200; 25% overlap helps on this
   corpus; normalization is a null; English best tested fixed-word size is also 50.
 - No native-set claims and no reproduction claims are included.
 
 ## Provenance
 
-Every number in the paper comes from `data/external/urdu_chunking_full/` (manifest, runs.jsonl,
-questions.csv) and the derived tables in `results/analysis/`. The analysis script is
-`code/analyze_full.py`; figure script is `code/make_figures.py`.
+Main-grid numbers come from `data/external/urdu_chunking_full/` (manifest, runs.jsonl,
+questions.csv) and the derived tables in `results/analysis/`. The bge-m3 lower-size summary is
+`results/analysis/table_lower.csv` (raw per-question E1 arrays are not in this workspace). The
+analysis script is `code/analyze_full.py`; figure script is `code/make_figures.py`.
 
 ## Known limitations stated in the paper
 
-MT corpus with 4.86 variants per paragraph; best tested size at the grid floor; single domain;
+MT corpus with 4.86 variants per paragraph; bge-m3 extended to 10 words, other encoders stop at 50; single domain;
 retrieval-only and no human judgments; no native queries; fixed BM25; 37/9,077 whitespace-padded
-answers excluded from N1/N2; Qwen3 prefix sensitivity; private artifact pending; marginal CIs with
+answers excluded from N1/N2; Qwen3 prefix sensitivity; public artifact at the GitHub URL; E1 raw arrays not in workspace; marginal CIs with
 no multiplicity correction.

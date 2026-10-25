@@ -20,8 +20,8 @@ and the verdict; the other files are the evidence and the follow-up plan.
 ## One-line verdict
 
 Suitable for public release as a preliminary preprint with limitations disclosed; not yet ready for
-a peer-reviewed submission as a chunking-optimum paper until the lower-size dense grid and a public
-artifact exist.
+a peer-reviewed submission as a chunking-optimum paper until the e5/Qwen3/LaBSE lower-size runs and
+the raw E1 arrays exist.
 
 ## Verification in one line
 
@@ -31,7 +31,7 @@ run-inventory error; the corrected total is 360.
 
 ## What is still open
 
-1. Dense 10/25/40/50 grid (E1) — not run; no GPU locally.
+1. Dense 10/25/40/50 grid (E1) — bge-m3 completed; e5/Qwen3/LaBSE not run; raw E1 runs not in workspace.
 2. Public code/results artifact — pushed to
    https://github.com/devxyasir/urdu-chunking-strategy; licence and DOI still open.
 3. Native Urdu set — does not exist.
