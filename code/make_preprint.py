@@ -2,7 +2,7 @@ s = open("paper/paper.tex", encoding="utf-8").read()
 s = s.replace(r"\usepackage[review]{acl}", r"\usepackage[preprint]{acl}")
 s = s.replace(
     r"\author{Anonymous ACL submission}",
-    r"\author{Muhammad Yasir\\Independent Researcher\\Dubai, United Arab Emirates\\\href{mailto:hello@devxyasir.com}{hello@devxyasir.com}}",
+    r"\author{Muhammad Yasir\\\href{mailto:hello@devxyasir.com}{hello@devxyasir.com}}",
 )
 s = s.replace("\\nolinenumbers\n", "")
 open("paper/paper_preprint.tex", "w", encoding="utf-8").write(s)
