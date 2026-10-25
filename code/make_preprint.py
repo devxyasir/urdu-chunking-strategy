@@ -1,0 +1,6 @@
+s = open("paper/paper.tex", encoding="utf-8").read()
+s = s.replace(r"\usepackage[review]{acl}", r"\usepackage[preprint]{acl}")
+s = s.replace(r"\author{Anonymous ACL submission}", r"\author{Muhammad Yasir}")
+s = s.replace("\\nolinenumbers\n", "")
+open("paper/paper_preprint.tex", "w", encoding="utf-8").write(s)
+print("ok")

@@ -1,0 +1,232 @@
+{
+ "schema_version": "1.0",
+ "timestamp": "2026-10-25T11:15:21",
+ "dry_run": false,
+ "gpu": "NVIDIA A100-SXM4-40GB",
+ "torch": "2.11.0+cu130",
+ "cuda": "13.0",
+ "sentence_transformers": "6.2.0",
+ "transformers": "5.20.2",
+ "sha256": {
+  "squad_train_v2": "68dcfbb971bd3e96d5b46c7177b16c1a4e7d4bdef19fb204502738552dede002",
+  "uqa_train_parquet": "4f89eaf03e31c7a02ce5274b16e05c2df7b390f664d5a801e2a091ba1b09d0d5"
+ },
+ "model_revisions": {
+  "bge": "5617a9f61b028005a4858fdac845db406aefb181",
+  "e5": "274baa43b0e13e37fafa6428dbc7938e62e5c439",
+  "qwen": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "labse": "836121a0533e5664b21c7aacc5d22951f2b8b25b"
+ },
+ "expected_counts": {
+  "uqa_rows": 124745,
+  "english_paragraphs": 19035,
+  "retained_rows": 24898,
+  "eligible_articles": 403,
+  "pool_articles": 150,
+  "pool_dev": 30,
+  "pool_test": 120,
+  "pool_words": 1007122,
+  "pool_paragraphs": 6720,
+  "pool_questions": 9077,
+  "dev_questions": 1715,
+  "test_questions": 7362
+ },
+ "actual_counts": {
+  "uqa_rows": 124745,
+  "english_paragraphs": 19035,
+  "paragraphs_covered_by_uqa": 19021,
+  "retained_rows": 24898,
+  "eligible_articles": 403,
+  "pool_articles": 150,
+  "pool_dev": 30,
+  "pool_test": 120,
+  "pool_words": 1007122,
+  "pool_paragraphs": 6720,
+  "pool_questions": 9077,
+  "dev_questions": 1715,
+  "test_questions": 7362
+ },
+ "data_stats": {
+  "mean_variants_per_paragraph": 4.859050523106041,
+  "share_paragraphs_multi_variant": 0.9740812785868251,
+  "share_rows_in_modal_variant": 0.30442101887851214,
+  "retained_rate": 0.19959116597859633,
+  "span_mismatch_ur": 0,
+  "dev_phase": 0,
+  "docs_not_nfc": 2
+ },
+ "normalization_mapping": {
+  "N0": {
+   "questions": 9077,
+   "failed": 0,
+   "failure_rate": 0.0
+  },
+  "N1": {
+   "questions": 9077,
+   "failed": 37,
+   "failure_rate": 0.004076236642062355
+  },
+  "N2": {
+   "questions": 9077,
+   "failed": 37,
+   "failure_rate": 0.004076236642062355
+  }
+ },
+ "self_tests": {
+  "1 counts within 0.5% of spec": {
+   "pass": true,
+   "detail": "{\"pool_articles\": 150, \"pool_dev\": 30, \"pool_test\": 120, \"pool_questions\": 9077, \"pool_words\": 1007122}"
+  },
+  "2 span audit (Urdu + English) exact": {
+   "pass": true,
+   "detail": "24898 Urdu rows and all English spans matched exactly (asserted)"
+  },
+  "4 offset mapping N0/N1/N2": {
+   "pass": false,
+   "detail": "N0: 0/9077 failed (0.0000%); N1: 37/9077 failed (0.4076%); N2: 37/9077 failed (0.4076%) (failed questions are excluded from that variant, never re-found)"
+  },
+  "3 chunker coverage (10 docs x all configs)": {
+   "pass": true,
+   "detail": "max uncovered=0, max double-covered at overlap 0=0, checks=1170, 38s"
+  },
+  "5 oracle / random sanity": {
+   "pass": true,
+   "detail": "oracle bm500=1.000; random r5=0.0222 (expect 0.0250)"
+  },
+  "6 BM25 vs reference (Spearman on chunk scores)": {
+   "pass": true,
+   "detail": "vs rank_bm25.BM25Okapi: mean rho=1.00000, min=1.00000, queries=25"
+  },
+  "7 embedding determinism (bge)": {
+   "pass": true,
+   "detail": "max abs diff=0.00e+00"
+  },
+  "8 truncation flag (bge)": {
+   "pass": true,
+   "detail": "long=8242 tokens (flagged), short=5 (not flagged), limit=8190"
+  },
+  "9 prefix check (e5, dev, 200 words, n=100)": {
+   "pass": true,
+   "detail": "{\"prefix\": {\"r1\": 0.49, \"r5\": 0.79, \"r10\": 0.87, \"bm500\": 0.64}, \"no_prefix\": {\"r1\": 0.43, \"r5\": 0.71, \"r10\": 0.86, \"bm500\": 0.55}} | documented prefix is used for all runs regardless"
+  },
+  "9 prefix check (qwen, dev, 200 words, n=100)": {
+   "pass": true,
+   "detail": "{\"prefix\": {\"r1\": 0.32, \"r5\": 0.56, \"r10\": 0.69, \"bm500\": 0.4}, \"no_prefix\": {\"r1\": 0.31, \"r5\": 0.58, \"r10\": 0.68, \"bm500\": 0.46}} | documented prefix is used for all runs regardless"
+  }
+ },
+ "tokenizer_fertility": {
+  "bge": {
+   "ur": 1.339574716558805,
+   "en": 1.4804985679692206
+  },
+  "e5": {
+   "ur": 1.339574716558805,
+   "en": 1.4804985679692206
+  },
+  "qwen": {
+   "ur": 3.069894409031191,
+   "en": 1.3808710188929727
+  },
+  "labse": {
+   "ur": 1.24849399056007,
+   "en": 1.3150836478064731
+  }
+ },
+ "prefix_checks": {
+  "e5": {
+   "prefix": {
+    "r1": 0.49,
+    "r5": 0.79,
+    "r10": 0.87,
+    "bm500": 0.64
+   },
+   "no_prefix": {
+    "r1": 0.43,
+    "r5": 0.71,
+    "r10": 0.86,
+    "bm500": 0.55
+   }
+  },
+  "qwen": {
+   "prefix": {
+    "r1": 0.32,
+    "r5": 0.56,
+    "r10": 0.69,
+    "bm500": 0.4
+   },
+   "no_prefix": {
+    "r1": 0.31,
+    "r5": 0.58,
+    "r10": 0.68,
+    "bm500": 0.46
+   }
+  }
+ },
+ "settings": {
+  "STAGES": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "MODELS": [
+   "bge",
+   "e5",
+   "qwen",
+   "labse"
+  ],
+  "RUN_SPLITS": [
+   "test"
+  ],
+  "CHAR_GRID_MODE": "auto",
+  "EN_BOUNDARIES_FOR_EN_CORPUS": true,
+  "budget_mode_primary": "crossing",
+  "bm25": {
+   "k1": 1.2,
+   "b": 0.75,
+   "idf": "BM25Okapi"
+  },
+  "rrf_k": 60,
+  "bm25_fixed_tokens_tokenizer": "bge",
+  "seed": 0
+ },
+ "n_runs": 360,
+ "deviations_runtime": [
+  "'every 5th article is dev' is ambiguous; used positions i%5==0 because it matches the expected dev size"
+ ],
+ "settings_original": {
+  "STAGES": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "MODELS": [
+   "bge",
+   "e5",
+   "qwen",
+   "labse"
+  ],
+  "RUN_SPLITS": [
+   "test"
+  ],
+  "CHAR_GRID_MODE": "auto",
+  "EN_BOUNDARIES_FOR_EN_CORPUS": true,
+  "budget_mode_primary": "strict",
+  "bm25": {
+   "k1": 1.2,
+   "b": 0.75,
+   "idf": "BM25Okapi"
+  },
+  "rrf_k": 60,
+  "bm25_fixed_tokens_tokenizer": "bge",
+  "seed": 0
+ },
+ "corrections": [
+  "settings.budget_mode_primary was hard-coded as 'strict' in the archived manifest; the primary metric bm500x is the crossing budget. The original value is kept in settings_original. See docs/audit/verification_report.md."
+ ]
+}

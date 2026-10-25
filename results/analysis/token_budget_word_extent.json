@@ -1,0 +1,17 @@
+{
+  "bge": {
+    "best_token_budget": 128,
+    "tokens_per_word": 1.339574716558805,
+    "implied_words": 95.6
+  },
+  "e5": {
+    "best_token_budget": 64,
+    "tokens_per_word": 1.339574716558805,
+    "implied_words": 47.8
+  },
+  "qwen": {
+    "best_token_budget": 256,
+    "tokens_per_word": 3.069894409031191,
+    "implied_words": 83.4
+  }
+}

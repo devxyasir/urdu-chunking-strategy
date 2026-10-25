@@ -1,0 +1,6 @@
+-r requirements.txt
+torch==2.11.0
+sentence-transformers==6.2.0
+transformers==5.20.2
+huggingface_hub
+# Archived runs: torch 2.11.0+cu130, CUDA 13.0; install the matching wheel from the PyTorch index.

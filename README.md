@@ -1,0 +1,50 @@
+# Urdu chunking: public artifact
+
+Retrieval-only study of how Urdu documents should be chunked. This repository contains code,
+configurations, run metadata, per-question metrics, rankings, figures, and the paper. It does
+**not** contain the UQA corpus or the question/answer files: `corpus_ur.jsonl`, `corpus_en.jsonl`,
+question/answer text, and `audit_100_questions.csv` are excluded. The paper's Figure 1 contains a
+short illustrative quotation.
+
+Public repository: <https://github.com/devxyasir/urdu-chunking-strategy>
+
+## What is here
+
+- `paper/` — revised named and anonymous PDFs, LaTeX source, references.
+- `data/external/urdu_chunking_full/` — `run_index.jsonl`, `runs.jsonl.gz` (per-question
+  metrics, no text), rankings, manifest, summary, sanitized question IDs and a minimal
+  `questions.csv` (qid, article_id, split only).
+- `code/` — corpus builder, chunkers, BM25, dense wrappers, analysis, figures, audit script.
+- `figures/`, `docs/audit/`, `notebooks/`.
+
+## Reproduce the tables (no UQA text needed)
+
+```bash
+pip install -r requirements.txt
+gunzip -c data/external/urdu_chunking_full/runs.jsonl.gz \
+  > data/external/urdu_chunking_full/runs.jsonl
+python code/analyze_full.py
+python code/analyze_extra.py
+python code/make_figures.py
+```
+
+The run package is 360 runs; `run_index.jsonl` maps every run to its configuration. The
+minimal `questions.csv` preserves only IDs and splits, which is all the analysis needs.
+
+## Reproduce the runs (needs UQA + GPU)
+
+UQA has no explicit licence. Obtain it from the original authors, not from this repository.
+SQuAD2.0 is CC BY-SA 4.0. The full data build is in `code/`; the archived GPU notebook is
+`notebooks/urdu_chunking_fullrun.ipynb`. The lower-size experiment is
+`code/run_small_sizes.py` with `notebooks/urdu_chunking_small_sizes.ipynb`.
+
+## What is not claimed
+
+This is a boundary result: 50 words is the smallest dense size tested. The 10/25/40/50
+dense grid is specified but was not run when the paper was compiled. The corpus is
+machine-translated, single-domain, and retrieval-only. See `docs/audit/publication_readiness.md`.
+
+## Licence
+
+No code licence has been chosen yet. Do not assume a licence for the code or the paper until
+one is added. The paper text and figures are the author's; UQA text is not included.
