@@ -145,6 +145,10 @@ Upload only `corpus_ur.jsonl` and `questions.csv` to
 `MyDrive/urdu_chunking/urdu_chunking_full/`; the notebook clones the code from this repository.
 The script is resumable.
 
+For the remaining e5/Qwen3/LaBSE runs (bge-m3 already done), use
+[`urdu_chunking_lower_sizes_remaining.ipynb`](https://colab.research.google.com/github/devxyasir/urdu-chunking-strategy/blob/main/notebooks/urdu_chunking_lower_sizes_remaining.ipynb).
+It saves `runs.jsonl`, `summary.json`, and a zip to Drive.
+
 ## Reproduce the tables (no UQA text needed)
 
 ```bash
