@@ -94,6 +94,8 @@ def main():
     ap.add_argument("--sizes", nargs="+", type=int, default=[10, 25, 40, 50])
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--batch", type=int, default=64)
+    ap.add_argument("--score-batch", type=int, default=256,
+                    help="queries scored at once; lower this if the score matrix OOMs")
     ap.add_argument("--data-dir", default=DEFAULT_DATA)
     ap.add_argument("--out-dir", default=DEFAULT_OUT)
     args = ap.parse_args()
@@ -143,10 +145,16 @@ def main():
                 texts = [docs[a][s:e] for a, s, e in zip(cd, cs, ce)]
                 emb = model.encode(texts, batch_size=args.batch, normalize_embeddings=True,
                                    convert_to_numpy=True, show_progress_bar=True)
-                scores = qemb @ emb.T
-                k = min(100, scores.shape[1])
-                top = np.argpartition(-scores, k - 1, axis=1)[:, :k]
-                top = np.take_along_axis(top, np.argsort(-np.take_along_axis(scores, top, 1), 1), 1)
+                k = min(100, emb.shape[0])
+                top = np.empty((len(qs), k), dtype=np.int64)
+                for start in range(0, len(qs), args.score_batch):
+                    end = min(start + args.score_batch, len(qs))
+                    scores = qemb[start:end] @ emb.T
+                    part = np.argpartition(-scores, k - 1, axis=1)[:, :k]
+                    part = np.take_along_axis(
+                        part, np.argsort(-np.take_along_axis(scores, part, 1), 1), 1)
+                    top[start:end] = part
+                    del scores, part
                 by_doc = defaultdict(list)
                 for j, a in enumerate(cd):
                     by_doc[int(a)].append(j)
@@ -179,6 +187,10 @@ def main():
                 done.add(rec["run_id"])
                 print(json.dumps({k: rec[k] for k in ("run_id", "chunks", "metrics")}, ensure_ascii=False), flush=True)
                 print(f"  size={size} in {time.time()-t1:.1f}s", flush=True)
+                del emb, texts
+                if args.device == "cuda":
+                    import torch
+                    torch.cuda.empty_cache()
             del model, qemb
             if args.device == "cuda":
                 import torch

@@ -12,8 +12,11 @@ and the verdict; the other files are the evidence and the follow-up plan.
 | `reproducibility_plan.md` | E. Reproducibility plan | Public artifact structure, commands, licences, blockers |
 | `publication_readiness.md` | G/H. Checklist and verdict | Remaining steps, venue fit, honest classification |
 | `optional_studies.md` | Optional | Native-query and human-context protocols, if you widen the scope |
+| `e1_results.md` | E1 update | bge-m3 10/25/40/50 result and provenance |
+| `notebook_audit.md` | #5 audit | What was checked in the notebook, and what remains unaudited |
+| `self_contained_instructions.md` | #2 protocol | How to fill and score the 100-question self-containedness audit |
 | `../../public_artifact/` | Public staging | 80.6 MB, no UQA text; built by `code/build_public_artifact.py` |
-| `../paper/paper_preprint.pdf` | F. Revised paper | Named preprint, 10 pages, claims narrowed |
+| `../paper/paper_preprint.pdf` | F. Revised paper | Named preprint, 11 pages, claims narrowed |
 | `../paper/paper.pdf` | F. Revised paper (anonymous) | Same content with review formatting |
 | `../guide/urdu_chunking_guide.pdf` | Companion | 41-page defense guide, updated wording |
 
