@@ -1,5 +1,51 @@
 # Urdu chunking: public artifact
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23648556.svg)](https://doi.org/10.5281/zenodo.23648556)
+
+Public artifact for the paper **"How Should Urdu Documents Be Chunked for Retrieval? A Budget-Matched Study of Chunk Size, Overlap, Sentence Boundaries and Tokenization"**.
+
+## The paper
+
+| | |
+|---|---|
+| **Title** | How Should Urdu Documents Be Chunked for Retrieval? A Budget-Matched Study of Chunk Size, Overlap, Sentence Boundaries and Tokenization |
+| **Author** | Muhammad Yasir ([ORCID 0009-0001-0375-1016](https://orcid.org/0009-0001-0375-1016)) |
+| **Status** | Preprint |
+| **Zenodo record** | <https://zenodo.org/records/23648556> |
+| **DOI** | [10.5281/zenodo.23648556](https://doi.org/10.5281/zenodo.23648556) |
+| **PDF** | <https://devxyasir.com/uploads/papers/cfea9039f8131ec6.pdf> |
+| **Code and data (this repository)** | <https://github.com/devxyasir/urdu-chunking-strategy> |
+
+### Summary
+
+Most chunking evidence comes from English and measures chunk size in model tokens. This study tests Urdu retrieval on a parallel corpus of 150 articles and 7,362 questions. It compares five chunkers, four multilingual encoders, BM25, and BM25+dense RRF across 360 runs, plus a bge-m3 check at 10 to 50 words.
+
+Main results:
+
+- Among the sizes tested, 50 words is best for every dense encoder. Extending bge-m3 downward is monotonic and leaves 50 words best.
+- The best size in tokens differs between encoders because tokenizer fertility varies by about 2.3x.
+- Urdu-aware sentence splitting helps at 50 words and reverses at 200 words.
+- 25% overlap helps on this corpus. Text normalization makes no difference.
+- Three readers judge 77% of sampled questions self-contained.
+
+Limits: the study is retrieval-only and the corpus is machine-translated.
+
+### Cite
+
+Muhammad Yasir. *How Should Urdu Documents Be Chunked for Retrieval? A Budget-Matched Study of Chunk Size, Overlap, Sentence Boundaries and Tokenization.* Zenodo. https://doi.org/10.5281/zenodo.23648556
+
+```bibtex
+@misc{yasir_urdu_chunking,
+  author    = {Yasir, Muhammad},
+  title     = {How Should Urdu Documents Be Chunked for Retrieval? A Budget-Matched Study of Chunk Size, Overlap, Sentence Boundaries and Tokenization},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.23648556},
+  url       = {https://doi.org/10.5281/zenodo.23648556}
+}
+```
+
+## About this repository
+
 Retrieval-only study of how Urdu documents should be chunked. This repository contains code,
 configurations, run metadata, per-question metrics, rankings, figures, and the paper. It does
 **not** contain the UQA corpus or the question/answer files: `corpus_ur.jsonl`, `corpus_en.jsonl`,
