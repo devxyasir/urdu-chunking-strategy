@@ -102,6 +102,6 @@ dense grid is specified but was not run when the paper was compiled. The corpus 
 machine-translated, single-domain, and retrieval-only. See `docs/audit/publication_readiness.md`.
 
 ## Licence
+MIT License
 
-No code licence has been chosen yet. Do not assume a licence for the code or the paper until
-one is added. The paper text and figures are the author's; UQA text is not included.
+Copyright (c) 2026 Muhammad Yasir
